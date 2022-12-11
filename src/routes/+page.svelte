@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Calendar from "./Calendar.svelte";
+  import SlotMachine from "./SlotMachine.svelte";
   import { fly } from "svelte/transition";
   import Form from "./Form.svelte";
   let formSent = false;
 </script>
 
-<Calendar bind:formSent />
+<SlotMachine />
 {#if !formSent}
   <div
     out:fly={{ y: +100, duration: 400 }}

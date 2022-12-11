@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.slot-machine {
+  background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  position: relative;
+}
+.jackpot {
+  background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_01.png');
+  background-repeat: no-repeat;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 301px;
+  width: 320px;
+  background-size: contain;
+}
+.reel {
+  background-image: url('./images/reel_normal.png');
+  background-repeat: repeat-y;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 76px;
+  height: 8000px;
+  width: 60px;
+  background-size: contain;
+  background-position: 0 0;
+  transition: background-position 5s ease-out;
+
+}
+.reel-left {
+  left: 0;
+}
+.reel-right {
+  left: auto;
+  right: 0;
+}
+.reel-wrapper {
+  height: 67px;
+  overflow: hidden;
+  width: 210px;
+  background-color: transparent;
+  position: absolute;
+  top: 86px;
+  left: 45px;
+  margin: 0;
+}
+.jackpot-stick {
+  background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_02.png');
+  position: absolute;
+  right: 0;
+  width: 41px;
+  height: 157px;
+  top: -47px;
+  right: -10px;
+}
+.jackpot-stick.on {
+  background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_03.png');
+  position: absolute;
+  right: 0;
+  width: 41px;
+  height: 118px;
+  top: 113px;
+  right: -10px;
+}
