@@ -1,22 +1,18 @@
 <script lang="ts">
-    var state = 'idle';
-    // var inputs = [7, 3, 7];
-    // var inputs = [5, 3, 7];
-    var inputs = [2, 2, 2];
+    import Caption from "./Caption.svelte";
+    interface Reel {
+      style: string;
+      className: string;
+    }
+    export let reels: Reel[] = [];
+    export let winner: number[] = [];
+    let state = 'idle';
+    let msg = '';
+    const reelSize = 142;
 
     function isWinner (data: number[]) {
-        var filteredData = data.filter(item => item === data[0]);
-        console.log({filteredData});
+        let filteredData = data.filter(item => item === data[0]);
         return filteredData.length === 3 ? '✔️' : '❌';
-    }
-
-    function displayEndMessage (msg: string) {
-        var div = document.createElement("div");
-        var bck = document.getElementsByClassName('slot-machine')[0];
-        var message = bck.appendChild(div);
-        message.innerHTML = msg;
-        message.style.color = 'white';
-        message.style.fontSize = '2rem';
     }
 
     function onClick () {
@@ -24,26 +20,23 @@
             return false;
         }
         state = 'busy';
-        var stick = document.getElementsByClassName('jackpot-stick')[0];
-        var reels = document.getElementsByClassName('reel');
-        var longestTempo = 0;
-        for(var i = 0; i < reels.length; ++i) {
-            if (typeof(reels[i]) === 'object') {
-                var calc = 67 * (inputs[i] + 35);
-                var tempo = (Math.round(Math.random() * 2000) + 1000);
-                longestTempo = tempo > longestTempo ? tempo: longestTempo;
-                reels[i].style.backgroundPositionY = calc + 'px';
-                reels[i].style.transitionDuration = tempo + 'ms';
-            }
+        let longestTempo = 0;
+        const reelsLength = reels.length;
+        for(let i = 0; i < reelsLength; ++i) {
+          let calc = reelSize * (winner[i] + 35);
+          let tempo = (Math.round(Math.random() * 2000) + 1000);
+          longestTempo = tempo > longestTempo ? tempo: longestTempo;
+          reels[i].style = `margin-top: -${calc}px; transition-duration: ${tempo}ms;`;
         }
-        stick.classList.add('on');
         setTimeout(function() {
-            stick.classList.remove('on');
+            state = 'end';
         }, 250);
         setTimeout(function() {
-            displayEndMessage('is winner: ' + isWinner(inputs));
+          msg = 'is winner: ' + isWinner(winner);
         }, (longestTempo + 300));
     }
+
+    // <div class={className} {style}></div>
 </script>
   
 <div class="slot-machine"
@@ -52,22 +45,26 @@
 >
     <div class="jackpot">
         <div class="reel-wrapper">
-            <div class="reel reel-left"></div>
-            <div class="reel"></div>
-            <div class="reel reel-right"></div>
+            {#each reels as { className, style } }
+              <Caption className={className} style={style} />
+            {/each}
         </div>
-        <div class="jackpot-stick"></div>
+        <div class="jackpot-stick { state === 'busy' ? 'on' : '' }"></div>
     </div>
+    {#if msg}
+      <div class="text-white text-lg">{@html msg}</div>
+    {/if}
 </div>
 
 <style>
 .slot-machine {
   background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   background-size: cover;
   position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
 }
 .jackpot {
   background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_01.png');
@@ -75,42 +72,22 @@
   z-index: 1;
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  height: 301px;
-  width: 320px;
-  background-size: contain;
-}
-.reel {
-  background-image: url('images/reel_normal.png');
-  background-repeat: repeat-y;
-  z-index: 2;
-  position: absolute;
   top: 0;
-  left: 76px;
-  height: 8000px;
-  width: 60px;
-  background-size: contain;
-  background-position: 0 0;
-  transition: background-position 5s ease-out;
-
-}
-.reel-left {
   left: 0;
-}
-.reel-right {
-  left: auto;
   right: 0;
+  margin: auto auto;
+  height: 615px;
+  width: 678px;
+  background-size: contain;
 }
 .reel-wrapper {
-  height: 67px;
+  height: 142px;
   overflow: hidden;
-  width: 210px;
+  width: 445px;
   background-color: transparent;
   position: absolute;
-  top: 86px;
-  left: 45px;
+  top: 183px;
+  left: 97px;
   margin: 0;
 }
 .jackpot-stick {
@@ -119,8 +96,8 @@
   right: 0;
   width: 41px;
   height: 157px;
-  top: -47px;
-  right: -10px;
+  top: 76px;
+  right: -7px;
 }
 .jackpot-stick.on {
   background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_03.png');
@@ -128,7 +105,7 @@
   right: 0;
   width: 41px;
   height: 118px;
-  top: 113px;
+  top: 260px;
   right: -10px;
 }
 </style>

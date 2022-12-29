@@ -1,16 +1,85 @@
 <script lang="ts">
   import SlotMachine from "./SlotMachine.svelte";
-  import { fly } from "svelte/transition";
-  import Form from "./Form.svelte";
-  let formSent = false;
+  let reels = [{ className: 'reel reel-left', style: 'margin-top: 0px;' }, { className: 'reel reel-center', style: '' }, { className: 'reel reel-right', style: '' }];
+  let winner = [5, 6, 2];
+  let captions = [
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+    'https://via.placeholder.com/151',
+  ]
 </script>
 
-<SlotMachine />
-{#if !formSent}
-  <div
-    out:fly={{ y: +100, duration: 400 }}
-    class="absolute h-full w-full bg-black bg-opacity-80 text-white mx-auto text-center"
-  >
-    <Form bind:formSent />
-  </div>
-{/if}
+<SlotMachine {reels} bind:winner bind:captions />
