@@ -1,87 +1,20 @@
 <script lang="ts">
+    const repeat = (arr: string[], n: number) => Array(n).fill(arr).flat();
     export let captions: string[] = [];
     export let className = '';
     export let style = '';
-    captions = [
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-        'https://via.placeholder.com/150x152',
-    ];
-    
-    console.log(captions);
+    captions = repeat([
+        'https://via.placeholder.com/150x152/orange',
+        'https://via.placeholder.com/50x152/black',
+        'https://via.placeholder.com/150x152/blue',
+        'https://via.placeholder.com/150x152/yellow',
+        'https://via.placeholder.com/150x152/silver',
+        'https://via.placeholder.com/158x152/green',
+        'https://via.placeholder.com/150x182/teal',
+        'https://via.placeholder.com/150x152/pink',
+        'https://via.placeholder.com/120x152/red',
+        'https://via.placeholder.com/150x152/brown',
+    ], 50);
 </script>
 <style>
     .reel {
@@ -92,7 +25,6 @@
         left: 76px;
         height: 8000px;
         width: 140px;
-        background-size: contain;
         background-position: 0 0;
         transition: margin-top 5s ease-out;
         margin-top: 0px;
@@ -124,6 +56,10 @@
     }
     * {
         box-sizing: border-box;
+    }
+    .reel img {
+        width: 100%;
+        height: 142px;
     }
 </style>
 
