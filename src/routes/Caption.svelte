@@ -1,20 +1,25 @@
 <script lang="ts">
-    const repeat = (arr: string[], n: number) => Array(n).fill(arr).flat();
-    export let captions: string[] = [];
+    type Type = 'image' | 'text'
+    interface Captions {
+        type: Type;
+        value: 'string';
+    }
+    const repeat = (arr: any[], n: number) => Array(n).fill(arr).flat();
+    export let captions: Captions[] = [];
     export let className = '';
     export let style = '';
     captions = repeat([
-        'https://via.placeholder.com/150x152/orange',
-        'https://via.placeholder.com/50x152/black',
-        'https://via.placeholder.com/150x152/blue',
-        'https://via.placeholder.com/150x152/yellow',
-        'https://via.placeholder.com/150x152/silver',
-        'https://via.placeholder.com/158x152/green',
-        'https://via.placeholder.com/150x182/teal',
-        'https://via.placeholder.com/150x152/pink',
-        'https://via.placeholder.com/120x152/red',
-        'https://via.placeholder.com/150x152/brown',
-    ], 50);
+        { type: 'text', value: 'jaaar tu as gagné un grille pain!', },
+        { type: 'image', value: 'https://via.placeholder.com/50x152/black', },
+        { type: 'image', value: 'https://via.placeholder.com/150x152/blue', },
+        { type: 'image', value: 'https://via.placeholder.com/150x152/yellow', },
+        { type: 'image', value: 'https://via.placeholder.com/150x152/silver', },
+        { type: 'image', value: 'https://via.placeholder.com/158x152/green', },
+        { type: 'image', value: 'https://via.placeholder.com/150x182/teal', },
+        { type: 'image', value: 'https://via.placeholder.com/150x152/pink', },
+        { type: 'image', value: 'https://via.placeholder.com/120x152/red', },
+        { type: 'image', value: 'https://via.placeholder.com/150x152/brown', },
+    ], 30);
 </script>
 <style>
     .reel {
@@ -57,14 +62,24 @@
     * {
         box-sizing: border-box;
     }
-    .reel img {
+    .reel img,
+    .reel p {
         width: 100%;
         height: 142px;
+    }
+    .reel p {
+        text-align: center;
+        font-weight: 600;
+        padding: 20px 10px;
     }
 </style>
 
 <div class="{className}" style={style}>
-    {#each captions as id }
-        <img src="{id}" alt="cadeaux X" style="border: 1px solid black;"/>
+    {#each captions as { type, value }}
+        {#if type === 'image'}
+            <img src="{value}" alt="cadeaux X" style="border: 1px solid black;"/>
+        {:else}
+            <p>{value}</p>
+        {/if}
     {/each}
 </div>
