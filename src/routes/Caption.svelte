@@ -16,6 +16,7 @@
         { type: 'image', value: 'https://via.placeholder.com/150x152/silver', },
         { type: 'image', value: 'https://via.placeholder.com/158x152/green', },
         { type: 'image', value: 'https://via.placeholder.com/150x182/teal', },
+        { type: 'text', value: 'Un truc court', },
         { type: 'image', value: 'https://via.placeholder.com/150x152/pink', },
         { type: 'image', value: 'https://via.placeholder.com/120x152/red', },
         { type: 'image', value: 'https://via.placeholder.com/150x152/brown', },
@@ -62,15 +63,20 @@
     * {
         box-sizing: border-box;
     }
-    .reel img,
-    .reel p {
+    .reel > img,
+    .reel > div {
         width: 100%;
         height: 142px;
     }
-    .reel p {
-        text-align: center;
+    .reel > div {
+        display: flex; 
+        align-items: center; 
+        justify-content: center; /* optional */
+        background: #eee;  /* optional */
+    }
+    .reel > div > p {
         font-weight: 600;
-        padding: 20px 10px;
+        padding: 0 10px;
     }
 </style>
 
@@ -79,7 +85,9 @@
         {#if type === 'image'}
             <img src="{value}" alt="cadeaux X" style="border: 1px solid black;"/>
         {:else}
-            <p>{value}</p>
+            <div>
+                <p>{value}</p>
+            </div>
         {/if}
     {/each}
 </div>
