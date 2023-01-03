@@ -15,7 +15,7 @@
       }
       return screens[screens.length - 1 ][1];
     }
-    const screens = [[1279, 111], [10000, 142]];
+    const screens = [[600, 67], [1279, 111], [10000, 142]];
 
     let innerWidth = 0;
     let state = 'idle';
@@ -92,19 +92,18 @@
       background-size: contain;
   }
   .reel-wrapper {
-      height: 142px;
-      overflow: hidden;
-      width: 445px;
       background-color: transparent;
-      position: absolute;
-      top: 183px;
+      height: 142px;
       left: 97px;
       margin: 0;
+      position: absolute;
+      top: 183px;
+      overflow: hidden;
+      width: 445px;
   }
   .jackpot-stick {
       background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_02.png');
       position: absolute;
-      right: 0;
       width: 41px;
       height: 157px;
       top: 76px;
@@ -113,8 +112,6 @@
   .jackpot-stick.on {
       background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_03.png');
       position: absolute;
-      right: 0;
-      width: 41px;
       height: 118px;
       top: 260px;
       right: -10px;
@@ -129,6 +126,37 @@
           left: 74px;
           width: 348px;
           height: 113px;
+      }
+      .jackpot-stick {
+          top: 23px;
+          right: -10px;
+      }
+      .jackpot-stick.on {
+          height: 118px;
+          top: 200px;
+      }
+  }
+  @media (max-width: 600px) {
+      .jackpot {
+          height: 250px;
+          width: 320px;
+      }
+      .reel-wrapper {
+          top: 87px;
+          left: 47px;
+          width: 209px;
+          height: 67px;
+      }
+      .jackpot-stick {
+          background-size: contain;
+          width: 25px;
+          height: 95px;
+          top: 16px;
+          right: -7px;
+      }
+      .jackpot-stick.on {
+          height: 72px;
+          top: 119px;
       }
   }
 </style>

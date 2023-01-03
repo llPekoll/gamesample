@@ -89,6 +89,21 @@
             height: 111px;
         }
     }
+    @media (max-width: 600px) {
+        .reel {
+            width: 65px;
+            font-size: 0.7rem;
+            line-height: 1.2;
+
+        }
+        .reel-center {
+            width: 71px;
+        }
+        .reel > img,
+        .reel > div {
+            height: 67px;
+        }
+    }
 </style>
 
 <div class="{className}" style={style}>
