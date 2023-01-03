@@ -59,6 +59,7 @@
         left: 0;
         right: 0;
         margin: 0 auto;
+        width: 156px;
     }
     * {
         box-sizing: border-box;
@@ -77,6 +78,16 @@
     .reel > div > p {
         font-weight: 600;
         padding: 0 10px;
+    }
+
+    @media screen and (max-width: 1279px) {
+        .reel {
+            width: 111px;
+        }
+        .reel > img,
+        .reel > div {
+            height: 111px;
+        }
     }
 </style>
 

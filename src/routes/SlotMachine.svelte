@@ -6,16 +6,28 @@
     }
     export let reels: Reel[] = [];
     export let winner: number[] = [];
+
+    const getWidth = (size: number, screens: Array<number[]>): number => {
+      for(let i = 0; i < screens.length - 1; ++i) {
+        if(size <= screens[i][0]) {
+          return screens[i][1];
+        }
+      }
+      return screens[screens.length - 1 ][1];
+    }
+    const screens = [[1279, 111], [10000, 142]];
+
+    let innerWidth = 0;
     let state = 'idle';
     let msg = '';
-    const reelSize = 142;
 
-    function isWinner (data: number[]) {
+    const isWinner = (data: number[]) => {
         let filteredData = data.filter(item => item === data[0]);
         return filteredData.length === 3 ? '✔️' : '❌';
     }
 
     function onClick () {
+      const reelSize: number = getWidth(innerWidth, screens);
         if (state !== 'idle') {
             return false;
         }
@@ -35,10 +47,10 @@
           msg = 'is winner: ' + isWinner(winner);
         }, (longestTempo + 300));
     }
-
-    // <div class={className} {style}></div>
 </script>
-  
+
+<svelte:window bind:innerWidth />
+
 <div class="slot-machine"
     on:click|once={onClick}
     on:keydown|once={onClick}
@@ -57,55 +69,66 @@
 </div>
 
 <style>
-.slot-machine {
-  background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-  background-repeat: no-repeat;
-}
-.jackpot {
-  background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_01.png');
-  background-repeat: no-repeat;
-  z-index: 1;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto;
-  height: 615px;
-  width: 678px;
-  background-size: contain;
-}
-.reel-wrapper {
-  height: 142px;
-  overflow: hidden;
-  width: 445px;
-  background-color: transparent;
-  position: absolute;
-  top: 183px;
-  left: 97px;
-  margin: 0;
-}
-.jackpot-stick {
-  background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_02.png');
-  position: absolute;
-  right: 0;
-  width: 41px;
-  height: 157px;
-  top: 76px;
-  right: -7px;
-}
-.jackpot-stick.on {
-  background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_03.png');
-  position: absolute;
-  right: 0;
-  width: 41px;
-  height: 118px;
-  top: 260px;
-  right: -10px;
-}
+  .slot-machine {
+      background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      background-repeat: no-repeat;
+  }
+  .jackpot {
+      background-image: url('./images/PNG_RIDEAUX/03A_JACKPOT_01.png');
+      background-repeat: no-repeat;
+      z-index: 1;
+      position: absolute;
+      bottom: 10%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      height: 615px;
+      width: 678px;
+      background-size: contain;
+  }
+  .reel-wrapper {
+      height: 142px;
+      overflow: hidden;
+      width: 445px;
+      background-color: transparent;
+      position: absolute;
+      top: 183px;
+      left: 97px;
+      margin: 0;
+  }
+  .jackpot-stick {
+      background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_02.png');
+      position: absolute;
+      right: 0;
+      width: 41px;
+      height: 157px;
+      top: 76px;
+      right: -7px;
+  }
+  .jackpot-stick.on {
+      background-image: url('images/PNG_RIDEAUX/03A_JACKPOT_03.png');
+      position: absolute;
+      right: 0;
+      width: 41px;
+      height: 118px;
+      top: 260px;
+      right: -10px;
+  }
+  @media (max-width: 1279px) {
+      .jackpot {
+          height: 400px;
+          width: 525px;
+      }
+      .reel-wrapper {
+          top: 142px;
+          left: 74px;
+          width: 348px;
+          height: 113px;
+      }
+  }
 </style>
