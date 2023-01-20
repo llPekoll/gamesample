@@ -26,6 +26,14 @@
         return filteredData.length === 3 ? '✔️' : '❌';
     }
 
+    const reset = () => {
+        state = 'idle';
+        const reelsLength = reels.length;
+        for(let i = 0; i < reelsLength; ++i) {
+            reels[i].style = 'margin-top: 0; transition-duration: 0ms;';
+        }
+    }
+
     function onClick () {
       const reelSize: number = getWidth(innerWidth, screens);
         if (state !== 'idle') {
@@ -50,12 +58,11 @@
 </script>
 
 <svelte:window bind:innerWidth />
-
-<div class="slot-machine"
-    on:click|once={onClick}
-    on:keydown|once={onClick}
->
-    <div class="jackpot">
+<div class="slot-machine">
+    <div class="jackpot"
+        on:click={onClick}
+        on:keydown={onClick}
+    >
         <div class="reel-wrapper">
             {#each reels as { className, style } }
               <Caption className={className} style={style} />
@@ -65,6 +72,13 @@
     </div>
     {#if msg}
       <div class="text-white text-lg">{@html msg}</div>
+      <div
+        class="text-white text-lg cursor-pointer"
+        on:click={reset}
+        on:keydown={reset}
+    >
+        Reset
+    </div>
     {/if}
 </div>
 
