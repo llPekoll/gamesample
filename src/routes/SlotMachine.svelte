@@ -28,6 +28,7 @@
 
     const reset = () => {
         state = 'idle';
+        msg = '';
         const reelsLength = reels.length;
         for(let i = 0; i < reelsLength; ++i) {
             reels[i].style = 'margin-top: 0; transition-duration: 0ms;';
