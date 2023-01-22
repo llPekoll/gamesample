@@ -1,5 +1,6 @@
 <script lang="ts">
     import Caption from "./Caption.svelte";
+    import { gameResult } from "../algo";
     interface Reel {
       style: string;
       className: string;
@@ -7,6 +8,7 @@
     export let reels: Reel[] = [];
     export let winner: number[] = [];
 
+    console.log(gameResult([2, 3, 5, 2, 4, 56, 34]));
     const getWidth = (size: number, screens: Array<number[]>): number => {
       for(let i = 0; i < screens.length - 1; ++i) {
         if(size <= screens[i][0]) {
