@@ -53,16 +53,20 @@
 </script>
 <style>
   .thick {
-    width: 2px;
-    height: 75px;
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
     bottom: -40px;
+    display : inline-block;
+    height : 0;
+    width : 0;
+    border-right : 32px solid transparent;
+    border-bottom : 55px solid red;
+    border-left : 32px solid transparent;
   }
 </style>
-<div class="relative text-center w-9/12 my-5 mx-auto">
+<div class="relative text-center w-9/12 my-5 mx-auto max-w-lg">
   <svg
     viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
     style={`cursor: pointer;${css}`}
@@ -82,5 +86,5 @@
     <text transform={`rotate(${angles[i] * (180 / Math.PI)})`}  y="15%" writing-mode="tb" font-size="6px">{lots[i]}</text>
     {/each}
   </svg>
-  <div class="thick border-2 border-sky-500"></div>
+  <div class="thick"></div>
 </div>
