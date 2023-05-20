@@ -42,11 +42,13 @@
     "@types/d3-scale": "^4.0.3",
     "@types/d3-selection": "^3.0.4",
     "@types/d3-shape": "^3.1.1",
+    "@types/randomcolor": "^0.5.7",
     "color-scheme": "^1.0.1",
     "d3": "^7.8.4",
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.2.0",
+    "randomcolor": "^0.6.2",
     "three": "^0.146.0"
   }
 }
