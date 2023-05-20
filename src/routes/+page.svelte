@@ -8,7 +8,7 @@
   const lots = ['Lot 1','Lot 2','lolos','Lot 4','Lot 5'];
   const res = Math.round(Math.random() * lots.length - 1);
   
-  console.log(`res should be ${res}`);
+  console.log(`res should be ${lots[res]}`);
 
   let css = '';
 
@@ -76,26 +76,47 @@
     border-bottom : 55px solid red;
     border-left : 32px solid transparent;
   }
+  .background {
+      background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      background-repeat: no-repeat;
+  }
+  .pie-chart {
+    width: 600px;
+    height: 600px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 </style>
-<div class="relative text-center w-9/12 my-5 mx-auto max-w-lg">
-  <svg
-    viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
-    style={`cursor: pointer;${css}`}
-    on:click={handleClick}
-    on:keydown={handleClick}
-  >
-  {#each angles as value, i}
-    <path
-      d={pie({
-        startAngle: angles[i - 1] || 0,
-        endAngle: value,
-      })}
-          fill={colors(i)}
-    />
-    {/each}
+<div class="background">
+  <div class="pie-chart text-center">
+    <svg
+      viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
+      style={`cursor: pointer;${css}`}
+      on:click={handleClick}
+      on:keydown={handleClick}
+    >
     {#each angles as value, i}
-    <text transform={`rotate(${angles[i] * (180 / Math.PI)})`}  y="15%" writing-mode="tb" font-size="6px">{lots[i]}</text>
-    {/each}
-  </svg>
-  <div class="thick"></div>
+      <path
+        d={pie({
+          startAngle: angles[i - 1] || 0,
+          endAngle: value,
+        })}
+            fill={colors(i)}
+      />
+      {/each}
+      {#each angles as value, i}
+      <text transform={`rotate(${angles[i] * (180 / Math.PI)})`}  y="15%" writing-mode="tb" font-size="6px">{lots[i]}</text>
+      {/each}
+    </svg>
+    <div class="thick"></div>
+  </div>
 </div>
