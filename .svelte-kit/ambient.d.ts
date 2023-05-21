@@ -41,6 +41,7 @@ declare module '$env/static/private' {
 	export const LESS: string;
 	export const npm_package_devDependencies__typescript_eslint_parser: string;
 	export const NVM_BIN: string;
+	export const npm_package_dependencies__types_randomcolor: string;
 	export const npm_package_devDependencies_eslint_config_prettier: string;
 	export const ZSH: string;
 	export const LSCOLORS: string;
@@ -169,6 +170,7 @@ declare module '$env/dynamic/private' {
 		LESS: string;
 		npm_package_devDependencies__typescript_eslint_parser: string;
 		NVM_BIN: string;
+		npm_package_dependencies__types_randomcolor: string;
 		npm_package_devDependencies_eslint_config_prettier: string;
 		ZSH: string;
 		LSCOLORS: string;

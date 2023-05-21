@@ -1,15 +1,18 @@
 <script lang='ts'>
   import { onMount } from 'svelte';
-  // import { PieChart } from '../utils/PieCharts';
   import { scaleOrdinal } from 'd3-scale';
   import { arc } from 'd3-shape';
   import randomColor from 'randomcolor';
 
-  const lots = ['Lot 1','Lot 2','lolos','Lot 4','Lot 5'];
+  const lots = ['Lot 1','Lot 2','lolos','Lot 4','Lot 5', 'lot 6'];
   const res = Math.round(Math.random() * lots.length - 1);
-  
-  console.log(`res should be ${lots[res]}`);
+  const isOdd = !!(lots.length % 2);
+  const l = lots.length;
+  const rad = 1 / l;
 
+  console.log(`res should be ${lots[res]}`);
+  const offset = !isOdd ? (rad * Math.PI) : 0;
+  const offsetRad = !isOdd ? rad / 2 : 0;
   let css = '';
 
   const svgWidth = 200;
@@ -17,12 +20,9 @@
 
   const handleClick = (event: MouseEvent): void => {
     event.preventDefault();
-    // rotation = Math.round(Math.random() * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
-    const l = lots.length;
-    const rad = 1 / l;
     let rotation = 0;
 
-    rotation = Math.round(((1 - rad) - (rad * res)) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
+    rotation = Math.round(((1 - rad) - (rad * res) - offsetRad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
     css = `transform: rotate(${rotation}deg); transition: transform  5s ease-in-out`;
   }
   const createTwistingPie = (items: string[]) => {
@@ -34,11 +34,9 @@
         hue: 'random',
       });
 
-    const data = [40, 40, 40, 40, 40];
     const colors = scaleOrdinal()
       .range(rColors);
 
-    
     const radius = Math.min(svgWidth, svgHeight) / 2;
 
     const pie = arc()
@@ -69,12 +67,11 @@
     right: 0;
     margin: auto;
     bottom: -40px;
-    display : inline-block;
-    height : 0;
-    width : 0;
-    border-right : 32px solid transparent;
-    border-bottom : 55px solid red;
-    border-left : 32px solid transparent;
+    display : block;
+    width : 95px;
+    height : 307px;
+    background-image: url('./images/PNG_RIDEAUX/03A_ROUE_03.png');
+    transform: rotate(180deg);
   }
   .background {
       background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
@@ -86,37 +83,51 @@
       background-repeat: no-repeat;
   }
   .pie-chart {
-    width: 600px;
-    height: 600px;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    width: 449px;
+    height: 449px;
+    display: block;
+    margin: 0 auto;
     left: 0;
     right: 0;
+    top: 25px;
+    position: absolute;
+  }
+  .pie-wrapper {
+    background-image: url('./images/PNG_RIDEAUX/03A_ROUE_01.png');
+    margin: 0 auto;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    width: 596px;
+    height: 600px;
   }
 </style>
 <div class="background">
-  <div class="pie-chart text-center">
-    <svg
-      viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
-      style={`cursor: pointer;${css}`}
-      on:click={handleClick}
-      on:keydown={handleClick}
-    >
-    {#each angles as value, i}
-      <path
-        d={pie({
-          startAngle: angles[i - 1] || 0,
-          endAngle: value,
-        })}
-            fill={colors(i)}
-      />
-      {/each}
+  <div class="pie-wrapper">
+    <div class="pie-chart text-center">
+      <svg
+        viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
+        style={`cursor: pointer;${css}`}
+        on:click={handleClick}
+        on:keydown={handleClick}
+      >
       {#each angles as value, i}
-      <text transform={`rotate(${angles[i] * (180 / Math.PI)})`}  y="15%" writing-mode="tb" font-size="6px">{lots[i]}</text>
-      {/each}
-    </svg>
-    <div class="thick"></div>
+        <path
+          d={pie({
+            startAngle: angles[i - 1] || 0,
+            endAngle: value,
+          })}
+              fill={colors(i)}
+              stroke="white"
+              style={{'stroke-width': '2px' }}
+        />
+        {/each}
+        {#each angles as value, i}
+        <text transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}  y="15%" writing-mode="tb" font-size="6px">{lots[i]}</text>
+        {/each}
+      </svg>
+      <div class="thick"></div>
+    </div>
   </div>
 </div>
