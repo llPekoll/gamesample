@@ -4,7 +4,7 @@
   import { arc } from 'd3-shape';
   import randomColor from 'randomcolor';
 
-  const lots = ['Lot 1','Lot 2','lolos','Lot 4', 'lot 6', 'lot 9'];
+  const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
   const l = lots.length;
   const res = Math.round(Math.random() * l - 1);
   const isOdd = !!(l % 2);
@@ -71,6 +71,20 @@
       overflow: hidden;
       background-repeat: no-repeat;
   }
+  .price-list {
+    position: absolute;
+    top: 10;
+    right: 0;
+    left: 0;
+    margin: 10px auto;
+    width: 40%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.8);
+  }
   .pie-chart {
     z-index: 1;
     position: absolute;
@@ -122,8 +136,8 @@
     .pie-chart {
       width: 673px;
       height: 673px;
-      left: 133px;
-      top: 71px;
+      left: 125px;
+      top: 63px;
     }
     .pie-chart-background {
       width: 965px;
@@ -133,6 +147,24 @@
       width: 965px;
       height: 950px;
     }
+    .price-list {
+      right: auto;
+      left: 0;
+      margin: 10px 0;
+      width: 30%;
+    }
+  }
+  text {
+    font-family: Arial, Helvetica, sans-serif,
+                 sans-serif-condensed, sans-serif;
+    glyph-orientation-vertical: 0;
+    font-stretch: ultra-condensed;
+    text-transform: uppercase;
+    font-weight: 700;
+    writing-mode: vertical-rl;  /* CSS3 syntax */
+    text-orientation: upright;
+    font-size: 11px;
+    letter-spacing: -1;
   }
 </style>
 <div class="background">
@@ -146,21 +178,38 @@
         viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
         style={`cursor: pointer;${css}`}
       >
-      {#each angles as value, i}
-        <path
-          d={pie({
-            startAngle: angles[i - 1] || 0,
-            endAngle: value,
-          })}
-              fill={colors(i)}
-              stroke="white"
-              style={{'stroke-width': '2px' }}
-        />
+        {#each angles as value, i}
+          <path
+            d={pie({
+              startAngle: angles[i - 1] || 0,
+              endAngle: value,
+            })}
+                fill={colors(i)}
+                stroke="white"
+                style={{'stroke-width': '2px' }}
+          />
         {/each}
         {#each angles as value, i}
-        <text transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}  y="18%" writing-mode="tb" font-size="12px">{lots[i]}</text>
+          <text
+            xlink:href="#svg-text"
+            method="stretch"
+            lengthAdjust="spacingAndGlyphs"
+            transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}
+            y="13%"
+            writing-mode="vertical-rl"
+            fill={lots[i] === "LOST" ? 'white': 'black'}
+          >
+            lot {1 + i}
+          </text>
         {/each}
       </svg>
     </div>
+  </div>
+  <div class="price-list">
+    {#each lots as value, i}
+      <div class="price">
+        Lot {1 + i} : {value}
+      </div>
+    {/each}
   </div>
 </div>
