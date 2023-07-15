@@ -5,6 +5,7 @@
   import randomColor from 'randomcolor';
 
   const type = 'image'; // or text
+  const isInfoBox = true;
 
   // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
   const lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'];
@@ -218,6 +219,7 @@
       </svg>
     </div>
   </div>
+  {#if isInfoBox }
   <div class="price-list">
     {#each lots as value, i}
       <div class="price">
@@ -225,4 +227,5 @@
       </div>
     {/each}
   </div>
+  {/if}
 </div>
