@@ -4,7 +4,10 @@
   import { arc } from 'd3-shape';
   import randomColor from 'randomcolor';
 
-  const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
+  const type = 'image'; // or text
+
+  // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
+  const lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'];
   const l = lots.length;
   const res = Math.round(Math.random() * l - 1);
   const isOdd = !!(l % 2);
@@ -190,6 +193,7 @@
           />
         {/each}
         {#each angles as value, i}
+        {#if type === 'text'}
           <text
             xlink:href="#svg-text"
             method="stretch"
@@ -201,6 +205,15 @@
           >
             lot {1 + i}
           </text>
+        {:else}
+          <image 
+            xlink:href={`./images/${lots[i]}`}
+            transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}
+            x="25"
+            y="-10"
+            height="28"
+          />
+        {/if}
         {/each}
       </svg>
     </div>
