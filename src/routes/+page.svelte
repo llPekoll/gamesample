@@ -4,36 +4,71 @@
   import { arc } from 'd3-shape';
   import randomColor from 'randomcolor';
 
-  const type = 'image'; // or text
-  const isInfoBox = true;
+  let restart = false;
+  let hasRunning = false;
+
+  const type = 'image'; // || text
+  const isInfoBox = false;
 
   // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
   const lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'];
-  const l = lots.length;
-  const res = Math.round(Math.random() * l - 1);
-  const isOdd = !!(l % 2);
-  const rad = 1 / l;
 
-  console.log(`res should be ${lots[res]}`);
-  const offset = !isOdd ? (rad * Math.PI) : 0;
-  const offsetRad = !isOdd ? rad / 2 : 0;
+  const resetCss = (): void => {
+    let rotation = 0;
+
+    css = `transform: rotate(0deg); transition: none`;
+  }
+
+  const init = ({
+    type = 'image',
+    lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'],
+  }) => {
+    const l = lots.length;
+    const res = Math.round(Math.random() * l - 1);
+    const isOdd = !!(l % 2);
+    const rad = 1 / l;
+
+    console.log(`res should be ${lots[res]}`);
+    const offset = !isOdd ? (rad * Math.PI) : 0;
+    const offsetRad = !isOdd ? rad / 2 : 0;
+    resetCss();
+    hasRunning = false;
+    restart = false;
+    return {
+      lots,
+      l,
+      res,
+      rad,
+      offset,
+      offsetRad,
+    }
+  }
+
   let css = '';
-
   const svgWidth = 200;
   const svgHeight = 200;
 
+  const params = init({
+    type,
+    lots,
+  });
   const handleClick = (event: MouseEvent | KeyboardEvent ): void => {
+    if (hasRunning) {
+      return;
+    }
+    hasRunning = true;
     event.preventDefault();
     let rotation = 0;
 
-    rotation = Math.round((((l / 2) * rad) - (rad * res) - offsetRad - rad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
+    rotation = Math.round((((params.l / 2) * params.rad) - (params.rad * params.res) - params.offsetRad - params.rad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
     css = `transform: rotate(${rotation}deg); transition: transform  5s ease-in-out`;
   }
+
   const createTwistingPie = (items: string[]) => {
     const lotFormated = lots.map(item => ({ item , data: 1}));
 
     const rColors = randomColor({
-        count: l,
+        count: params.l,
         luminosity: 'light',
         hue: 'random',
       });
@@ -63,8 +98,24 @@
 
   const { angles, colors, pie } = createTwistingPie(lots);
 
+  $:if (restart) {
+    init({
+      type,
+      lots,
+    });
+  }
 </script>
 <style>
+  .restart {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      z-index: 200;
+      color: white;
+      border: 1px solid white;
+      padding: 5px 10px;
+      border-radius: 5px;
+  }
   .background {
       background-image: url('./images/PNG_RIDEAUX/01_FOND.png');
       width: 100%;
@@ -173,8 +224,8 @@
 </style>
 <div class="background">
   <div class="pie-wrapper"
-    on:click|once={handleClick}
-    on:keydown|once={handleClick}
+    on:click={handleClick}
+    on:keydown={handleClick}
   >
     <div class="pie-chart-background"></div>
     <div class="pie-chart">
@@ -199,7 +250,7 @@
             xlink:href="#svg-text"
             method="stretch"
             lengthAdjust="spacingAndGlyphs"
-            transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}
+            transform={`rotate(${(angles[i] + params.offset) * (180 / Math.PI)})`}
             y="13%"
             writing-mode="vertical-rl"
             fill={lots[i] === "LOST" ? 'white': 'black'}
@@ -209,7 +260,7 @@
         {:else}
           <image 
             xlink:href={`./images/${lots[i]}`}
-            transform={`rotate(${(angles[i] + offset) * (180 / Math.PI)})`}
+            transform={`rotate(${(angles[i] + params.offset) * (180 / Math.PI)})`}
             x="25"
             y="-10"
             height="28"
@@ -228,4 +279,11 @@
     {/each}
   </div>
   {/if}
+  <div
+    class="restart btn"
+    on:click={() => restart = true}
+    on:keypress={() => restart = true}
+  >
+    Restart
+  </div>
 </div>
