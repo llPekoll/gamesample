@@ -1,5 +1,4 @@
 <script lang='ts'>
-  import { onMount } from 'svelte';
   import { scaleOrdinal } from 'd3-scale';
   import { arc } from 'd3-shape';
   import randomColor from 'randomcolor';
@@ -7,20 +6,16 @@
   let restart = false;
   let hasRunning = false;
 
-  const type = 'image'; // || text
   const isInfoBox = false;
 
   // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
-  const lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'];
+  const lots = ['https://place-hold.it/300x800', 'https://place-hold.it/300x800', 'dragon en carton', 'https://place-hold.it/300x800', 'https://place-hold.it/300x800', 'dragon en carton'];
 
   const resetCss = (): void => {
-    let rotation = 0;
-
     css = `transform: rotate(0deg); transition: none`;
   }
 
   const init = ({
-    type = 'image',
     lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'],
   }) => {
     const l = lots.length;
@@ -49,7 +44,6 @@
   const svgHeight = 200;
 
   const params = init({
-    type,
     lots,
   });
   const handleClick = (event: MouseEvent | KeyboardEvent ): void => {
@@ -100,7 +94,6 @@
 
   $:if (restart) {
     init({
-      type,
       lots,
     });
   }
@@ -245,7 +238,7 @@
           />
         {/each}
         {#each angles as value, i}
-        {#if type === 'text'}
+        {#if lots[i].indexOf('://') === -1}
           <text
             xlink:href="#svg-text"
             method="stretch"
@@ -259,11 +252,11 @@
           </text>
         {:else}
           <image 
-            xlink:href={`./images/${lots[i]}`}
+            xlink:href={lots[i]}
             transform={`rotate(${(angles[i] + params.offset) * (180 / Math.PI)})`}
-            x="25"
-            y="-10"
-            height="28"
+            y="13%"
+            x="-12"
+            height="63"
           />
         {/if}
         {/each}
