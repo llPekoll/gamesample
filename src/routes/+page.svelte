@@ -5,7 +5,7 @@
 
   let restart = false;
   let hasRunning = false;
-
+  let disableClick = false;
   const isInfoBox = false;
 
   // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
@@ -47,15 +47,19 @@
     lots,
   });
   const handleClick = (event: MouseEvent | KeyboardEvent ): void => {
-    if (hasRunning) {
+    if (hasRunning || disableClick) {
       return;
     }
+    disableClick = true;
     hasRunning = true;
     event.preventDefault();
     let rotation = 0;
 
     rotation = Math.round((((params.l / 2) * params.rad) - (params.rad * params.res) - params.offsetRad - params.rad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
     css = `transform: rotate(${rotation}deg); transition: transform  5s ease-in-out`;
+    setTimeout(() => {
+      disableClick = false;
+     }, 5000);
   }
 
   const createTwistingPie = (items: string[]) => {
