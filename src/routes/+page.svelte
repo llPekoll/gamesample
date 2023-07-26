@@ -15,9 +15,6 @@
     css = `transform: rotate(0deg); transition: none`;
   }
 
-  let stdDeviation: number = 0;
-
-
   const init = ({
     lots = ['mamadou.png', 'test.jpg', 'mamadou.png', 'mamadou.png'],
   }) => {
@@ -56,17 +53,9 @@
     hasRunning = true;
     event.preventDefault();
     let rotation = 0;
-    stdDeviation = 5;
-    rotation = Math.round((((params.l / 2) * params.rad) - (params.rad * params.res) - params.offsetRad - params.rad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
-    css = `transform: rotate(${rotation}deg); transition: transform  5s ease-out`;
-    let interval = setInterval(() => {
-      stdDeviation -= .5 ;
-      hasRunning = false;
-      if(stdDeviation <= 0)  {
-        clearInterval(interval);
-      }
 
-    }, 500);
+    rotation = Math.round((((params.l / 2) * params.rad) - (params.rad * params.res) - params.offsetRad - params.rad) * 360) + ((3 + Math.round(Math.random() * 5)) * 360);
+    css = `transform: rotate(${rotation}deg); transition: transform  5s ease-in-out`;
   }
 
   const createTwistingPie = (items: string[]) => {
@@ -237,12 +226,6 @@
         viewBox={`-${svgWidth / 2} -${svgHeight / 2} ${svgWidth} ${svgHeight}`}
         style={`cursor: pointer;${css}`}
       >
-      <defs>
-        <filter id="f1" x="0" y="0">
-          <feGaussianBlur in="SourceGraphic" stdDeviation={stdDeviation} />
-        </filter>
-      </defs>
-      <g filter="url(#f1)">
         {#each angles as value, i}
           <path
             d={pie({
@@ -277,7 +260,6 @@
           />
         {/if}
         {/each}
-      </g>
       </svg>
     </div>
   </div>
