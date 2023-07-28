@@ -24,6 +24,7 @@
     const rad = 1 / l;
 
     console.log(`res should be ${lots[res]}`);
+  
     const offset = !isOdd ? (rad * Math.PI) : 0;
     const offsetRad = !isOdd ? rad / 2 : 0;
     resetCss();
@@ -167,7 +168,7 @@
     width: 280px;
     height: 312px;
   }
-  @media screen and (min-width: 920px) {
+  @media screen and (min-width: 920px) or (max-height: 550px){
     .pie-chart {
       width: 403px;
       height: 449px;
@@ -185,6 +186,9 @@
     }
   }
   @media screen and (min-width: 1280px) {
+    .background {
+      background-position: bottom
+    }
     .pie-chart {
       width: 673px;
       height: 673px;
@@ -217,6 +221,66 @@
     text-orientation: upright;
     font-size: 11px;
     letter-spacing: -1;
+  }
+  
+  @media screen and (max-height: 960px) {
+    .background {
+      background-position: bottom;
+    }
+    .pie-chart {
+      width: 403px;
+      height: 449px;
+      left: 91px;
+      top: 49px;
+    }
+    
+    .pie-chart-background {
+      width: 543px;
+      height: 600px;
+    }
+    .pie-wrapper {
+      width: 543px;
+      height: 600px;
+    }
+  }
+  @media screen and (max-height: 610px) {
+    .pie-chart {
+      width: 673px;
+      height: 673px;
+      left: 125px;
+      top: 63px;
+    }
+    .pie-chart-background {
+      width: 965px;
+      height: 950px;
+    }
+    .pie-wrapper {
+      width: 965px;
+      height: 950px;
+    }
+    .price-list {
+      right: auto;
+      left: 0;
+      margin: 10px 0;
+      width: 30%;
+    }
+  }
+  @media screen and (min-height: 0px) and (max-height: 609px) {
+    .pie-chart {
+    width: 215px;
+    height: 215px;
+    left: 45px;
+    top: 23px;
+  }
+  
+  .pie-chart-background {
+    width: 290px;
+    height: 312px;
+  }
+  .pie-wrapper {
+    width: 280px;
+    height: 312px;
+  }
   }
 </style>
 <div class="background">
