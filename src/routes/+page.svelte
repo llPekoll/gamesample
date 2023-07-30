@@ -6,7 +6,7 @@
   let restart = false;
   let hasRunning = false;
   let disableClick = false;
-  const isInfoBox = false;
+  const isInfoBox = true;
 
   // const lots = ['Four micro ondes','un petit pot','dragon en carton','Jean Lacoste', 'Ta soeur toute nue', 'Perdu Lulu'];
   const lots = [
@@ -148,7 +148,11 @@
               writing-mode="vertical-rl"
               fill={lots[i] === "LOST" ? "white" : "black"}
             >
-              lot {1 + i}
+              {#if isInfoBox}
+                lot {1 + i}
+              {:else}
+                {lots[i]}
+              {/if}
             </text>
           {:else}
             <image
