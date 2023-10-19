@@ -72,7 +72,7 @@
           360
       ) +
       (3 + Math.round(Math.random() * 5)) * 360;
-    css = `transform: rotate(${rotation}deg); transition: transform  5s  cubic-bezier(0.68, -0.3, 0.32, 1.2)`;
+    css = `transform: rotate(${rotation}deg); transition: transform  5s  cubic-bezier(.5,-0.28,.23,1.28)`;
     setTimeout(() => {
       disableClick = false;
     }, 5000);
@@ -199,7 +199,7 @@
     border-radius: 5px;
   }
   .background {
-    background-image: url("./images/PNG_RIDEAUX/01_FOND.png");
+    background-image: url("https://f003.backblazeb2.com/file/swapye/01_FOND.png");
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -234,7 +234,7 @@
   }
 
   .pie-chart-background {
-    background-image: url("./images/PNG_RIDEAUX/Roue_RTK.png");
+    background-image: url("https://f003.backblazeb2.com/file/swapye/Roue_RTK.png");
     position: absolute;
     background-size: cover;
     z-index: 2;
